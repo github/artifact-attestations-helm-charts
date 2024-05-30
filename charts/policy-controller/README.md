@@ -68,10 +68,7 @@ The Helm chart for Policy  Controller
 Install `policy-controller` using Helm:
 
 ```shell
-helm repo add sigstore https://sigstore.github.io/helm-charts
-helm repo update
-kubectl create namespace cosign-system
-helm install policy-controller -n cosign-system sigstore/policy-controller --devel
+helm install policy-controller oci://ghcr.io/github/helm-charts/policy-controller --create-namespace -n cosign-system --version 0.9.0-github1
 ```
 
 The `policy-controller` enforce images matching the defined list of `ClusterImagePolicy` for the labeled namespaces.
