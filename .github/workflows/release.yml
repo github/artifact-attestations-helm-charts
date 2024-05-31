@@ -20,6 +20,8 @@ jobs:
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - name: Package policy-controller chart
         run: |
+          # tag names are in the format <chart-name>-v<semantic-version>
+          # so we need to extract the chart name
           chart_name=$(echo -n ${{ github.ref_name }} | awk -F'-v' '{print $1}')
           helm package charts/"${chart_name}"
       - name: Log in to registry
@@ -29,8 +31,11 @@ jobs:
       - name: Get pushed chart digest
         id: get-digest
         run: |
+          # extract the version from the tag name
           version=$(echo -n ${{ github.ref_name }} | sed 's/^policy-controller-//')
-          digest=$(helm show chart oci://${{ env.REGISTRY }}/${{ github.repository }}/policy-controller --version "${version}"  2>&1 >/dev/null | grep "^Digest" | sed 's/^Digest: //')
+          # helm show chart prints the digest to stderr, so redirect stderr and
+          # extract the digest from the output
+          digest=$(helm show chart oci://${{ env.REGISTRY }}/${{ github.repository }}/policy-controller --version "${version}" 2>&1 >/dev/null | grep "^Digest" | sed 's/^Digest: //')
           echo digest=$digest >> $GITHUB_ENV
       - name: Attest
         uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
@@ -38,4 +43,3 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ github.repository }}/${{ github.ref_name }}.tgz 
           subject-digest: ${{ steps.get-digest.outputs.digest }}
           push-to-registry: true
-
