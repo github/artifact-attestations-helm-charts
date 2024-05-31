@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - name: Extract Helm chart name and version
-        id: chart-release-details
+        id: release-details
         run: |
           # tag names are in the format <chart-name>-v<semantic-version>
           # so we need to extract the chart name
@@ -27,20 +27,20 @@ jobs:
           echo chart_name=$chart_name >> $GITHUB_ENV
 
           # extract the version from the tag name
-          version=$(echo -n ${{ github.ref_name }} | sed "s/^${{ steps.chart-release-details.outputs.chart_name }}-//")
+          version=$(echo -n ${{ github.ref_name }} | sed "s/^${{ steps.release-details.outputs.chart_name }}-//")
           echo chart_version=$version >> $GITHUB_ENV
       - name: Package Helm chart
-        run: helm package charts/${{ steps.chart-release-details.outputs.chart_name }}
+        run: helm package charts/${{ steps.release-details.outputs.chart_name }}
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
       - name: Push packaged chart to GHCR
-        run: helm push ${{ github.ref_name }}.tgz oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.chart-release-details.outputs.chart_name }}
+        run: helm push ${{ github.ref_name }}.tgz oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.chart_name }}
       - name: Get pushed chart digest
         id: get-digest
         run: |
           # helm show chart prints the digest to stderr, so redirect stderr and
           # extract the digest from the output
-          digest=$(helm show chart oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.chart-release-details.outputs.chart_name }} --version ${{ steps.chart-release-details.outputs.chart_version }} 2>&1 >/dev/null | grep "^Digest" | sed 's/^Digest: //')
+          digest=$(helm show chart oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.chart_name }} --version ${{ steps.release-details.outputs.chart_version }} 2>&1 >/dev/null | grep "^Digest" | sed 's/^Digest: //')
           echo digest=$digest >> $GITHUB_ENV
       - name: Attest
         uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
