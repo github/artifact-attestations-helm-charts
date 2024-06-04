@@ -31,8 +31,12 @@ jobs:
           echo chart_version=$version >> $GITHUB_OUTPUT
       - name: Package Helm chart
         run: helm package charts/${{ steps.release-details.outputs.chart_name }}
-      - name: Log in to registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push packaged chart to GHCR
         run: helm push ${{ github.ref_name }}.tgz oci://${{ env.REGISTRY }}/${{ github.repository }}
       - name: Get pushed chart digest
