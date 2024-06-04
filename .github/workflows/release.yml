@@ -24,11 +24,11 @@ jobs:
           # tag names are in the format <chart-name>-v<semantic-version>
           # so we need to extract the chart name
           chart_name=$(echo -n ${{ github.ref_name }} | awk -F'-v' '{print $1}')
-          echo chart_name=$chart_name >> $GITHUB_ENV
+          echo chart_name=$chart_name >> $GITHUB_OUTPUT
 
           # extract the version from the tag name
           version=$(echo -n ${{ github.ref_name }} | sed "s/^$chart_name-//")
-          echo chart_version=$version >> $GITHUB_ENV
+          echo chart_version=$version >> $GITHUB_OUTPUT
       - name: Package Helm chart
         run: helm package charts/${{ steps.release-details.outputs.chart_name }}
       - name: Log in to registry
@@ -41,7 +41,7 @@ jobs:
           # helm show chart prints the digest to stderr, so redirect stderr and
           # extract the digest from the output
           digest=$(helm show chart oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.chart_name }} --version ${{ steps.release-details.outputs.chart_version }} 2>&1 >/dev/null | grep "^Digest" | sed 's/^Digest: //')
-          echo digest=$digest >> $GITHUB_ENV
+          echo digest=$digest >> $GITHUB_OUTPUT
       - name: Attest
         uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
         with:
