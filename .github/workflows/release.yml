@@ -27,7 +27,7 @@ jobs:
           echo chart_name=$chart_name >> $GITHUB_ENV
 
           # extract the version from the tag name
-          version=$(echo -n ${{ github.ref_name }} | sed "s/^${{ steps.release-details.outputs.chart_name }}-//")
+          version=$(echo -n ${{ github.ref_name }} | sed "s/^$chart_name-//")
           echo chart_version=$version >> $GITHUB_ENV
       - name: Package Helm chart
         run: helm package charts/${{ steps.release-details.outputs.chart_name }}
