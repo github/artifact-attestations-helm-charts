@@ -40,7 +40,7 @@ jobs:
         run: |
           # helm show chart prints the digest to stderr, so redirect stderr and
           # extract the digest from the output
-          digest=$(helm show chart oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.chart_name }} --version ${{ steps.release-details.outputs.chart_version }} | grep "^Digest" | sed 's/^Digest: //')
+          digest=$(helm show chart oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.chart_name }} --version ${{ steps.release-details.outputs.chart_version }} 2>&1 | grep "^Digest" | sed 's/^Digest: //')
           echo digest=$digest >> $GITHUB_OUTPUT
       - name: Attest
         uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
