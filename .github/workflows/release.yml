@@ -45,6 +45,6 @@ jobs:
       - name: Attest
         uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ github.repository }}/${{ github.ref_name }}.tgz 
+          subject-name: ${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.chart_name }}
           subject-digest: ${{ steps.get-digest.outputs.digest }}
           push-to-registry: true
