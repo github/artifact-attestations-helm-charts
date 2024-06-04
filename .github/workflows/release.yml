@@ -34,7 +34,7 @@ jobs:
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
       - name: Push packaged chart to GHCR
-        run: helm push ${{ github.ref_name }}.tgz oci://${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.chart_name }}
+        run: helm push ${{ github.ref_name }}.tgz oci://${{ env.REGISTRY }}/${{ github.repository }}
       - name: Get pushed chart digest
         id: get-digest
         run: |
