@@ -39,6 +39,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push packaged chart to GHCR
         run: helm push ${{ github.ref_name }}.tgz oci://${{ env.REGISTRY }}/${{ github.repository }}
+      - uses: imjasonh/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # v0.3
       - name: Get pushed chart digest
         id: get-digest
         run: |
