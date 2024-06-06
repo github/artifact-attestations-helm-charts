@@ -1,0 +1,18 @@
+{{ if .Values.policy.enabled }}
+apiVersion: policy.sigstore.dev/v1alpha1
+kind: ClusterImagePolicy
+metadata:
+  name: github-policy
+spec:
+  images:
+  - glob: "**"
+  authorities:
+  - keyless:
+      identities:
+      - issuer: https://token.actions.githubusercontent.com
+        subjectRegExp: https://github.com/{{ .Values.policy.organization }}/{{ .Values.policy.repo }}/\.github/workflows/.*
+    signatureFormat: bundle
+    attestations:
+    - name: require-attestation
+      predicateType: {{ .Values.policy.predicateType }}
+{{- end }}

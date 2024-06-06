@@ -1,0 +1,16 @@
+apiVersion: v2
+description: The Helm chart for Policy  Controller
+home: https://github.com/github/policy-controller
+
+sources:
+  - https://github.com/github/policy-controller
+
+type: application
+
+name: policy-controller-policies
+version: "v0.1.0"
+appVersion: "v0.1.0"
+
+maintainers:
+  - name: codysoyland
+  - name: malancas
