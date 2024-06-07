@@ -1,0 +1,20 @@
+name: Release Policy Controller Chart
+
+on:
+  push:
+    tags:
+      - policy-controller-v*
+
+jobs:
+  release-policy-controller:
+    name: Release Policy Controller Chart
+    uses: .github/workflows/release.yml
+    with:
+      chart_name: policy-controller
+      chart_release: ${{ github.ref }}
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+      packages: write
+    secrets: inherit
