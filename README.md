@@ -6,7 +6,7 @@ The policy controller is an an admission controller built to enforce policies
 on a Kubernetes cluster.
 
 The Helm charts included in this repository are configured to enforce that
-images installed on a cluster are attested by the
+images installed on a cluster have provenance attestations generated with the
 [Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
 
 The charts are published to GHCR as OCI images. Each release is attested by
