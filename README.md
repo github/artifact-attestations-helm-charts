@@ -1,4 +1,4 @@
-# Policy Controller Helm Charts
+# GitHub Sigstore Policy Controller Helm Charts
 
 This repository hosts the GitHub's [Policy Controller](https://github.com/github/policy-controller) Helm charts.
 
