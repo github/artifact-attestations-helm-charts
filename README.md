@@ -1,6 +1,6 @@
 # Policy Controller Helm Charts
 
-This repository hosts the GitHub flavored [Policy Controller](https://github.com/github/policy-controller) Helm charts.
+This repository hosts the GitHub's [Policy Controller](https://github.com/github/policy-controller) Helm charts.
 
 The policy controller is an an admission controller built to enforce policies
 on a Kubernetes cluster.
