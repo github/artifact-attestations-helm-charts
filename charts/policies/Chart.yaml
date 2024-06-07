@@ -7,7 +7,7 @@ sources:
 
 type: application
 
-name: policies
+name: policy-controller-policies
 version: "v0.1.0"
 appVersion: "v0.1.0"
 
