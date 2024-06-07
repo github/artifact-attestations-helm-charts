@@ -30,13 +30,14 @@ helm install policy-controller \
 ```
 
 The `--create-namespace` will create the release namespace if not present.
-The `--atmoic` flag will delete the installation if failure occurs. 
+The `--atomic` flag will delete the installation if failure occurs. 
 
 Next, install the default GitHub policy to be used with policy controller:
 
 ```bash
-helm install policy-controller-policies \
-    ghcr.io/github/policy-controller-helm/policies --set policy.enabled=true \
+helm install github-artifact-attestation-policy \
+    ghcr.io/github/policy-controller-helm/policies \ 
+    --set policy.enabled=true \
     --set policy.organization=MYORG
 ```
 
