@@ -7,7 +7,7 @@ on:
 
 jobs:
   release-policy-controller:
-    uses: ./github/workflows/release.yml
+    uses: ./.github/workflows/release.yml
     with:
       chart_name: policy-controller
       chart_release: ${{ github.ref }}
