@@ -1,5 +1,5 @@
 apiVersion: v2
-description: GitHub artifact attestation policies for policy controller
+description: Default GitHub policy for policy controller
 home: https://github.com/github/policy-controller
 
 sources:
