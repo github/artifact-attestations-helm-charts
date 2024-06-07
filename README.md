@@ -9,7 +9,7 @@ The Helm charts included in this repository are configured to enforce that
 images installed on a cluster are attested by the
 [Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
 
-The charts are published to GHCR as OCI images. Each release is attested by
+The charts are published to GitHub Container Registry (GHCR) as OCI images. Each release is attested by
 the [Attest Build Provenance Action](https://github.com/actions/attest-build-provenance).
 
 You can verify these release with the `gh` CLI:
