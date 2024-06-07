@@ -7,7 +7,6 @@ on:
 
 jobs:
   release-policy-controller:
-    name: Release Policy Controller Chart
     uses: ./github/workflows/release.yml
     with:
       chart_name: policy-controller
