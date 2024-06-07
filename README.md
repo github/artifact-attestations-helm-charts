@@ -21,6 +21,32 @@ gh attestation verify \
 
 ## Installing the Charts
 
+You will need to install two charts. First, install the policy controller:
+
+```bash
+helm install policy-controller \
+    ghcr.io/github/policy-controller-helm/policy-controller \
+    --create-namespace --atomic --version v0.9.0-github2
+```
+
+The `--create-namespace` will create the release namespace if not present.
+The `--atmoic` flag will delete the installation if failure occurs. 
+
+Next, install the default GitHub policy to be used with policy controller:
+
+```bash
+helm install policy-controller-policies \
+    ghcr.io/github/policy-controller-helm/policies --set policy.enabled=true \
+    --set policy.organization=MYORG
+```
+
+By setting `policy.organization` to a specific organization, the policy
+controller will verify the workflow that signed an image's attestation is hosted
+in a repository within the specified organization.
+
+See [here](charts/policies/values.yaml) for a complete set of modifiable 
+policy chart values.
+
 ## Maintainer Documentation
 
 ### Cutting a New Release
