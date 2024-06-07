@@ -10,7 +10,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       chart_name: policy-controller-policies
-      chart_release: ${{ github.ref }}
+      chart_release: ${{ github.ref_name }}
     permissions:
       attestations: write
       contents: read
