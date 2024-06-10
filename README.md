@@ -1,8 +1,8 @@
-# GitHub Sigstore Policy Controller Helm Charts
+# GitHub Artifact Attestations Policy Controller Helm Charts
 
 This repository hosts the GitHub's [Policy Controller](https://github.com/github/policy-controller) Helm charts.
 
-The policy controller is an an admission controller built to enforce policies
+The policy controller is an admission controller built to enforce policies
 on a Kubernetes cluster.
 
 The Helm charts included in this repository are configured to enforce that
