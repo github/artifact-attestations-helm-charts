@@ -56,7 +56,7 @@ policy chart values.
 
 ## License 
 
-This project is licensed under the terms of the MIT open source license. Please refer to [MIT](./LICENSE) for the full terms.
+This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [Apache 2.0](./LICENSE) for the full terms.
 
 ## Maintainers 
 
