@@ -19,6 +19,12 @@ gh attestation verify \
     --owner github
 ```
 
+## Background 
+
+See the [official documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on
+using artifact attestations to establish build provenance and
+the [blog post](https://github.blog/2024-05-02-introducing-artifact-attestations-now-in-public-beta/) introducing Artifact Attestations.
+
 ## Installing the Charts
 
 You will need to install two charts. First, install the policy controller:
@@ -47,6 +53,19 @@ in a repository within the specified organization.
 
 See [here](charts/policies/values.yaml) for a complete set of modifiable 
 policy chart values.
+
+## License 
+
+This project is licensed under the terms of the MIT open source license. Please refer to [MIT](./LICENSE) for the full terms.
+
+## Maintainers 
+
+See [CODEOWNERS](./CODEOWNERS) for a list of maintainers.
+
+## Support
+
+If you have any questions or issues following examples outlined in this repository,
+please file an [issue](https://github.com/github/artifact-attestations-workflows/issues/new?template=Blank+issue) and we will assist you.
 
 ## Maintainer Documentation
 
