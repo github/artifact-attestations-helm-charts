@@ -65,7 +65,7 @@ See [CODEOWNERS](./CODEOWNERS) for a list of maintainers.
 ## Support
 
 If you have any questions or issues following examples outlined in this repository,
-please file an [issue](https://github.com/github/artifact-attestations-workflows/issues/new?template=Blank+issue) and we will assist you.
+please file an [issue](https://github.com/github/policy-controller-helm/issues/new?template=Blank+issue) and we will assist you.
 
 ## Maintainer Documentation
 
