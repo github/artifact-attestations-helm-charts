@@ -42,7 +42,7 @@ Next, install the default GitHub policy to be used with policy controller:
 
 ```bash
 helm install trust-policies \
-    ghcr.io/github/artifact-attestations-helm-charts/policies \ 
+    ghcr.io/github/artifact-attestations-helm-charts/trust-policies \ 
     --set policy.enabled=true \
     --set policy.organization=MYORG
 ```
