@@ -1,4 +1,4 @@
-# GitHub Artifact Attestations Policy Controller Helm Charts
+# Artifact Attestations Helm Charts
 
 This repository hosts the GitHub's [Policy Controller](https://github.com/github/policy-controller) Helm charts.
 
@@ -31,7 +31,7 @@ You will need to install two charts. First, install the policy controller:
 
 ```bash
 helm install policy-controller \
-    ghcr.io/github/policy-controller-helm/policy-controller \
+    ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
     --create-namespace --atomic --version v0.9.0-github2
 ```
 
@@ -41,8 +41,8 @@ The `--atomic` flag will delete the installation if failure occurs.
 Next, install the default GitHub policy to be used with policy controller:
 
 ```bash
-helm install github-artifact-attestation-policy \
-    ghcr.io/github/policy-controller-helm/policies \ 
+helm install trust-policies \
+    ghcr.io/github/artifact-attestations-helm-charts/policies \ 
     --set policy.enabled=true \
     --set policy.organization=MYORG
 ```
@@ -65,7 +65,7 @@ See [CODEOWNERS](./CODEOWNERS) for a list of maintainers.
 ## Support
 
 If you have any questions or issues following examples outlined in this repository,
-please file an [issue](https://github.com/github/policy-controller-helm/issues/new?template=Blank+issue) and we will assist you.
+please file an [issue](https://github.com/github/artifact-attestations-helm-charts/issues/new?template=Blank+issue) and we will assist you.
 
 ## Maintainer Documentation
 
