@@ -15,7 +15,7 @@ the [Attest Build Provenance Action](https://github.com/actions/attest-build-pro
 You can verify these release with the `gh` CLI:
 ```bash
 gh attestation verify \
-    oci://ghcr.io/github/policy-controller-helm/policy-controller:v0.9.0-github2 \
+    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.9.0-github2 \
     --owner github
 ```
 
