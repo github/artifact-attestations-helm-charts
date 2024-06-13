@@ -7,7 +7,7 @@ sources:
 
 type: application
 
-name: github-artifact-attestation-policy
+name: trust-policies
 version: "v0.1.0"
 appVersion: "v0.1.0"
 
