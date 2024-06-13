@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - policy-controller-v*
-      - github-artifact-attestation-policy-v*
+      - trust-policies-v*
 
 jobs:
   release:
