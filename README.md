@@ -31,7 +31,7 @@ You will need to install two charts. First, install the policy controller:
 
 ```bash
 helm install policy-controller \
-    ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
+    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
     --create-namespace --atomic --version v0.9.0-github2
 ```
 
@@ -42,7 +42,7 @@ Next, install the default GitHub policy to be used with policy controller:
 
 ```bash
 helm install trust-policies \
-    ghcr.io/github/artifact-attestations-helm-charts/trust-policies \ 
+    oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
     --set policy.enabled=true \
     --set policy.organization=MYORG
 ```
@@ -53,6 +53,15 @@ in a repository within the specified organization.
 
 See [here](charts/policies/values.yaml) for a complete set of modifiable 
 policy chart values.
+
+Once the charts are installed, policy controller should be running on your cluster.
+A namespace must be labeled with `policy.sigstore.dev/include=true` before
+policy controller can enforce the trust policy for any images we try to install
+on it. Label a namespace with the following:
+
+```bash
+kubectl label namespace MYNAMESPACE policy.sigstore.dev/include=true
+```
 
 ## License 
 
