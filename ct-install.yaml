@@ -1,5 +1,8 @@
 chart-dirs:
   - charts
+charts:
+  - policy-controller
+  - trust-policies
 validate-maintainers: false
 remote: origin
 target-branch: main
