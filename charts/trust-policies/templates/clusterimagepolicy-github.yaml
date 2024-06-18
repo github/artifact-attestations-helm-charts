@@ -7,7 +7,8 @@ spec:
   images:
   - glob: "**"
   authorities:
-  - keyless:
+  - name: github
+    keyless:
       trustRootRef: github
       identities:
       - issuer: https://token.actions.githubusercontent.com
@@ -18,4 +19,15 @@ spec:
     attestations:
     - name: require-attestation
       predicateType: {{ .Values.policy.predicateType }}
+  - name: public-good
+    keyless:
+      identities:
+      - issuer: https://token.actions.githubusercontent.com
+        subjectRegExp: https://github.com/bdehamer/.*/\.github/workflows/.*
+    ctlog:
+      url: https://rekor.sigstore.dev
+    signatureFormat: bundle
+    attestations:
+    - name: require-attestation
+      predicateType: https://slsa.dev/provenance/v1
 {{- end }}
