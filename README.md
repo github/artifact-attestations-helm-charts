@@ -32,7 +32,8 @@ You will need to install two charts. First, install the policy controller:
 ```bash
 helm install policy-controller \
     oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
-    --create-namespace --atomic --version v0.9.0-github2
+    --create-namespace --namespace artifact-attestations \
+    --atomic --version v0.9.0-github2
 ```
 
 The `--create-namespace` will create the release namespace if not present.
@@ -44,7 +45,8 @@ Next, install the default GitHub policy to be used with policy controller:
 helm install trust-policies \
     oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
     --set policy.enabled=true \
-    --set policy.organization=MYORG
+    --set policy.organization=MYORG \
+    --version v0.2.0
 ```
 
 By setting `policy.organization` to a specific organization, the policy
