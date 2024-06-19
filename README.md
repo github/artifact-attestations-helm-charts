@@ -19,7 +19,7 @@ gh attestation verify \
     --owner github
 ```
 
-## Background 
+## Background
 
 See the [official documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on
 using artifact attestations to establish build provenance and
@@ -31,34 +31,44 @@ You will need to install two charts. First, install the policy controller:
 
 ```bash
 helm install policy-controller \
-    ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
-    --create-namespace --atomic --version v0.9.0-github2
+    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
+    --create-namespace --namespace artifact-attestations \
+    --atomic --version v0.9.0-github2
 ```
 
 The `--create-namespace` will create the release namespace if not present.
-The `--atomic` flag will delete the installation if failure occurs. 
+The `--atomic` flag will delete the installation if failure occurs.
 
 Next, install the default GitHub policy to be used with policy controller:
 
 ```bash
 helm install trust-policies \
-    ghcr.io/github/artifact-attestations-helm-charts/trust-policies \ 
+    oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
     --set policy.enabled=true \
-    --set policy.organization=MYORG
+    --set policy.organization=MYORG \
+    --version v0.2.0
 ```
 
 By setting `policy.organization` to a specific organization, the policy
 controller will verify the workflow that signed an image's attestation is hosted
 in a repository within the specified organization.
 
-See [here](charts/policies/values.yaml) for a complete set of modifiable 
+See [here](charts/policies/values.yaml) for a complete set of modifiable
 policy chart values.
 
-## License 
+Once the charts are installed, policy controller should be running on your cluster.
+A namespace must be labeled with `policy.sigstore.dev/include=true` before
+policy controller can enforce the trust policy for any images we try to install
+on it. Label a namespace with the following:
+```bash
+kubectl label namespace MYNAMESPACE policy.sigstore.dev/include=true
+```
+
+## License
 
 This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [Apache 2.0](./LICENSE) for the full terms.
 
-## Maintainers 
+## Maintainers
 
 See [CODEOWNERS](./CODEOWNERS) for a list of maintainers.
 
@@ -76,6 +86,6 @@ When you are ready to cut a new release for a given Helm chart
 1. Update the chart's `AppVersion` and `Version` to the appropriate values
 1. Create a new tag prefixed with the targeted chart name in the format <my-chart-name>-v0.1.2, ex: `git tag -s "policy-controller-v0.10.0-github2" -m "policy-controller-v0.10.0-github2"`
 1. Push the tag, ex: `git push origin "policy-controller-v0.10.0-github2"`
-1. The [release workflow](.github/workflows/release.yml) will be triggered if 
+1. The [release workflow](.github/workflows/release.yml) will be triggered if
 the chart's tag format is included in the list of tags that trigger the workflow.
 The tag must follow the format `<my-chart-name>-v<semantic-version>`
