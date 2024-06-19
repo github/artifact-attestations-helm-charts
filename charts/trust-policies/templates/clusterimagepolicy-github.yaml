@@ -9,6 +9,7 @@ spec:
   authorities:
   - keyless:
       trustRootRef: github
+      url: https://fulcio.githubapp.com
       identities:
       - issuer: https://token.actions.githubusercontent.com
         subjectRegExp: https://github.com/{{ .Values.policy.organization }}/{{ .Values.policy.repo }}/\.github/workflows/.*
