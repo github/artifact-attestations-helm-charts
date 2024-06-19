@@ -23,11 +23,11 @@ spec:
     keyless:
       identities:
       - issuer: https://token.actions.githubusercontent.com
-        subjectRegExp: https://github.com/bdehamer/.*/\.github/workflows/.*
+        subjectRegExp: https://github.com/{{ .Values.policy.organization }}/{{ .Values.policy.repo }}/\.github/workflows/.*
     ctlog:
       url: https://rekor.sigstore.dev
     signatureFormat: bundle
     attestations:
     - name: require-attestation
-      predicateType: https://slsa.dev/provenance/v1
+      predicateType: {{ .Values.policy.predicateType }}
 {{- end }}
