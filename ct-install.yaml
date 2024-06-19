@@ -2,7 +2,7 @@ charts:
   - charts/policy-controller
   - charts/trust-policies
 helm-extra-args: "--timeout 1000s"
-namespace: artifact-attestations-test
+namespace: default
 remote: origin
 target-branch: main
 validate-maintainers: false
