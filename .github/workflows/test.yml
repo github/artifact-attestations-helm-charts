@@ -29,16 +29,15 @@ jobs:
       - name: Run chart-testing (lint)
         run: ct lint --config ct.yaml
 
-      - name: "Add NGINX Ingress Repository"
-        run: |
-          helm repo add ingress-nginx "https://kubernetes.github.io/ingress-nginx"
-          helm repo update
-
       - name: Create KIND Cluster
         uses: helm/kind-action@0025e74a8c7512023d06dc019c617aa3cf561fde # v1.10.0
 
-      - name: Install Ingress Controller
-        run: "helm install ingress-nginx/ingress-nginx --generate-name --set controller.service.type='NodePort' --set controller.admissionWebhooks.enabled=false"
+      - name: Install policy-controller
+        run: |
+          helm install policy-controller charts/policy-controller \
+            --create-namespace --namespace artifact-attestations --atomic
 
-      - name: Run chart-testing (install)
-        run: ct install --config ct-install.yaml
+      - name: Install trust-policies
+        run: |
+          helm install trust-policies charts/trust-policies \
+            --set policy.enabled=true
