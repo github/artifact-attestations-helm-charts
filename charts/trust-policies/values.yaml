@@ -1,9 +1,11 @@
 # A default policy can be created by setting policy.enabled to true.
 policy:
-  # organization is a regex that matches the organization name in the certificate identity
-  organization: '.*'
-  # repo is a regex that matches the repository name in the certificate identity
-  repo: '.*'
+  # subjectRegExp is a regex that matches the subject in the certificate identity. Required if policy.enabled is true and policy.organization is not set.
+  subjectRegExp:
+  # organization is a regex that matches the organization name in the certificate identity. Required if policy.enabled is true and policy.subjectRegExp is not set.
+  organization:
+  # repository is a regex that matches the repository name in the certificate identity. 
+  repository: '.*'
   # enabled is a flag to enable the default policy
   enabled: false
   # predicateType is the type of predicate to expect in the default policy
