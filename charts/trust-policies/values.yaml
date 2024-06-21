@@ -4,7 +4,7 @@ policy:
   subjectRegExp:
   # organization is a regex that matches the organization name in the certificate identity. Required if policy.enabled is true and policy.subjectRegExp is not set.
   organization:
-  # repository is a regex that matches the repository name in the certificate identity. 
+  # repository is a regex that matches the repository name in the certificate identity.
   repository: '.*'
   # enabled is a flag to enable the default policy
   enabled: false
