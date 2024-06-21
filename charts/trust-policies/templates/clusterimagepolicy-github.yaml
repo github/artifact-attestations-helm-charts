@@ -7,7 +7,7 @@ spec:
   images:
   - glob: "**"
   authorities:
-{{ if .Values.trust.github }}
+{{ if .Values.policy.trust.github }}
   - name: github
     keyless:
       trustRootRef: github
@@ -20,7 +20,7 @@ spec:
     attestations:
     - name: require-attestation
       predicateType: {{ .Values.policy.predicateType }}
-{{ end }}{{ if .Values.trust.sigstorePublic }}
+{{ end }}{{ if .Values.policy.trust.sigstorePublic }}
   - name: public-good
     keyless:
       identities:
