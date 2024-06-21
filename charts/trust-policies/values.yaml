@@ -8,3 +8,10 @@ policy:
   enabled: false
   # predicateType is the type of predicate to expect in the default policy
   predicateType: https://slsa.dev/provenance/v1
+
+# Identify which signing authorities should be trusted as part of the policy
+trust:
+  # trust the GitHub signing authority
+  github: true
+  # trust the Sigstore public-good signing authority
+  sigstorePublic: true
