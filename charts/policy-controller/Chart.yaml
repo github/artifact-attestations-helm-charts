@@ -8,15 +8,9 @@ sources:
 type: application
 
 name: policy-controller
-version: "v0.9.0-github2"
-appVersion: "v0.9.0-github2"
+version: "v0.9.0-github3"
+appVersion: "v0.9.0-github3"
 
 maintainers:
   - name: codysoyland
   - name: malancas
-
-annotations:
-  artifacthub.io/license: Apache-2.0
-  artifacthub.io/images: |
-    - name: policy-controller
-      image: ghcr.io/github/policy-controller/policy-controller:v0.8.2@sha256:f291fce5b9c1a69ba54990eda7e0fe4114043b1afefb0f4ee3e6f84ec9ef1605
