@@ -1,14 +1,22 @@
 # A default policy can be created by setting policy.enabled to true.
 policy:
-  # organization is a regex that matches the organization name in the certificate identity
-  organization: '.*'
-  # repo is a regex that matches the repository name in the certificate identity
-  repo: '.*'
-  # enabled is a flag to enable the default policy
-  enabled: false
-  # predicateType is the type of predicate to expect in the default policy
+  # To verify an attestation, we must validate the identity of the workflow that signed it, which is stored in the attestation's certificate's subject alternative name.
+  # To validate the signer workflow's identity, you can set the subjectRegExp value, or set the organization and the repository values below.
+  #
+  # policy.organization is used to validate the signer workflow's identity. An attestation is valid if it was generated inside a repository owned by this organization.
+  # Required if policy.enabled is true and policy.subjectRegExp has not been set.
+  organization:
+  # policy.repository is used to validate the signer workflow's identity. An attestation is valid if it was generated inside this specific repository.
+  # Must be used in combination with the policy.organization value.
+  repository: '.*'
+  # policy.subjectRegExp is a regex used to validate the signer workflow's identity. Use this if your attestations are generated with a reusable workflow.
+  # Required if policy.enabled is true and policy.organization has not been set.
+  subjectRegExp:
+  # policy.predicateType defines the type of predicate that the default policy expects
   predicateType: https://slsa.dev/provenance/v1
-  # Identify which signing authorities should be trusted as part of the policy
+  # policy.enabled enables the default policy
+  enabled: false
+  # policy.trust identifies which signing authorities should be trusted as part of the policy
   trust:
     # trust the GitHub signing authority
     github: true

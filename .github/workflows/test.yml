@@ -40,4 +40,5 @@ jobs:
       - name: Install trust-policies
         run: |
           helm install trust-policies charts/trust-policies \
-            --set policy.enabled=true
+            --set policy.enabled=true \
+            --set policy.organization=github

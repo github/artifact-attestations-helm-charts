@@ -14,7 +14,7 @@ spec:
       url: https://fulcio.githubapp.com
       identities:
       - issuer: https://token.actions.githubusercontent.com
-        subjectRegExp: https://github.com/{{ .Values.policy.organization }}/{{ .Values.policy.repo }}/\.github/workflows/.*
+        {{- include "clusterimagepolicy.subjectRegExp" . | nindent 8 }}
     rfc3161timestamp:
       trustRootRef: github
     signatureFormat: bundle
@@ -26,7 +26,7 @@ spec:
     keyless:
       identities:
       - issuer: https://token.actions.githubusercontent.com
-        subjectRegExp: https://github.com/{{ .Values.policy.organization }}/{{ .Values.policy.repo }}/\.github/workflows/.*
+        {{- include "clusterimagepolicy.subjectRegExp" . | nindent 8 }}
     ctlog:
       url: https://rekor.sigstore.dev
     signatureFormat: bundle
