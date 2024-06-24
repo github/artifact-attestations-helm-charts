@@ -1,6 +1,6 @@
 # A default policy can be created by setting policy.enabled to true.
 policy:
-  # subjectRegExp is a regex that matches the subject in the certificate identity. Required if policy.enabled is true and policy.organization is not set.
+  # subjectRegExp is a regex that is used to validate the signer workflow's identity by matching it with the subject in the certificate identity. Required if policy.enabled is true and policy.organization is not set.
   subjectRegExp:
   # organization is a regex that matches the organization name in the certificate identity. Required if policy.enabled is true and policy.subjectRegExp is not set.
   organization:
