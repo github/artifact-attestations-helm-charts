@@ -15,7 +15,7 @@ the [Attest Build Provenance Action](https://github.com/actions/attest-build-pro
 You can verify these release with the `gh` CLI:
 ```bash
 gh attestation verify \
-    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.9.0-github2 \
+    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.9.0-github3 \
     --owner github
 ```
 
@@ -33,7 +33,7 @@ You will need to install two charts. First, install the policy controller:
 helm install policy-controller \
     oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
     --create-namespace --namespace artifact-attestations \
-    --atomic --version v0.9.0-github2
+    --atomic --version v0.9.0-github3
 ```
 
 The `--create-namespace` will create the release namespace if not present.
@@ -48,7 +48,7 @@ helm install trust-policies \
     --atomic \
     --set policy.enabled=true \
     --set policy.organization=MYORG \
-    --version v0.2.0
+    --version v0.4.0
 ```
 
 By setting `policy.organization` to a specific organization, the policy
@@ -86,8 +86,8 @@ please file an [issue](https://github.com/github/artifact-attestations-helm-char
 When you are ready to cut a new release for a given Helm chart
 
 1. Update the chart's `AppVersion` and `Version` to the appropriate values
-1. Create a new tag prefixed with the targeted chart name in the format <my-chart-name>-v0.1.2, ex: `git tag -s "policy-controller-v0.10.0-github2" -m "policy-controller-v0.10.0-github2"`
-1. Push the tag, ex: `git push origin "policy-controller-v0.10.0-github2"`
+1. Create a new tag prefixed with the targeted chart name in the format <my-chart-name>-v0.1.2, ex: `git tag -s "policy-controller-v0.9.0-github3" -m "policy-controller-v0.9.0-github3"`
+1. Push the tag, ex: `git push origin "policy-controller-v0.9.0-github3"`
 1. The [release workflow](.github/workflows/release.yml) will be triggered if
 the chart's tag format is included in the list of tags that trigger the workflow.
 The tag must follow the format `<my-chart-name>-v<semantic-version>`
