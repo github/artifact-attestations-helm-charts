@@ -1,54 +1,51 @@
 # Artifact Attestations Helm Charts
 
-This repository hosts GitHub's [Policy Controller](https://github.com/github/policy-controller) Helm charts.
+This repository hosts GitHub's Helm charts used to deploy [a Kubernetes admission controller for Artifact Attestations](https://docs.github.com/en/actions/security-guides/enforcing-artifact-attestations-with-a-kubernetes-admission-controller). This admission controller allows you to enforce the provenance of artifacts deployed to your cluster by verifying their [Artifact Attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds#verifying-artifact-attestations-with-the-github-cli).
 
-The policy controller is an admission controller built to enforce policies
-on a Kubernetes cluster.
+The admission controller consists of:
+- A Helm chart for our [temporary fork](https://github.com/github/policy-controller) of the [Sigstore Policy Controller](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/policy-controller)
+- A Helm chart for deploying [GitHub's TrustRoot and a default ClusterImagePolicy](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/trust-policies)
 
-The Helm charts included in this repository are configured to enforce that
-images installed on a cluster have provenance attestations generated with the
+These charts are configured to enforce that images installed on a cluster have provenance attestations generated with the
 [Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
 
-The charts are published to GitHub Container Registry (GHCR) as OCI images. Each release is attested by
+These charts are published to GitHub Container Registry (GHCR) as OCI images. Each release is attested by
 the [Attest Build Provenance Action](https://github.com/actions/attest-build-provenance).
 
-You can verify these release with the `gh` CLI:
+You can verify these releases with the [`gh` CLI](https://cli.github.com/manual/gh_attestation_verify):
 ```bash
-gh attestation verify \
-    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.9.0-github3 \
-    --owner github
+gh attestation verify --owner github \
+    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.9.0-github3
 ```
 
-## Background
+For more information, see [our documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on using artifact attestations to establish build provenance and the [blog post](https://github.blog/2024-05-02-introducing-artifact-attestations-now-in-public-beta/) introducing Artifact Attestations.
 
-See the [official documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on
-using artifact attestations to establish build provenance and
-the [blog post](https://github.blog/2024-05-02-introducing-artifact-attestations-now-in-public-beta/) introducing Artifact Attestations.
+## Installation
+### Install the Sigstore Policy Controller
 
-## Installing the Charts
-
-You will need to install two charts. First, install the policy controller:
+You will need to install two charts. First, install the Sigstore policy controller:
 
 ```bash
-helm install policy-controller \
-    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
-    --create-namespace --namespace artifact-attestations \
-    --atomic --version v0.9.0-github3
+helm install policy-controller --atomic \
+  --create-namespace --namespace artifact-attestations \
+  oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
+  --version v0.9.0-github3
 ```
 
-The `--create-namespace` will create the release namespace if not present.
 The `--atomic` flag will delete the installation if failure occurs.
+The `--create-namespace` will create the release namespace if not present.
+
+### Install GitHub's `TrustRoot` and a `ClusterImagePolicy`
 
 Next, install the default GitHub policy to be used with policy controller:
 
 ```bash
-helm install trust-policies \
-    oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
-    --namespace artifact-attestations \
-    --atomic \
-    --set policy.enabled=true \
-    --set policy.organization=MYORG \
-    --version v0.4.0
+helm install trust-policies --atomic \
+ --namespace artifact-attestations \
+ oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
+ --version v0.4.0 \
+ --set policy.enabled=true \
+ --set policy.organization=MY-ORGANIZATION
 ```
 
 By setting `policy.organization` to a specific organization, the policy
