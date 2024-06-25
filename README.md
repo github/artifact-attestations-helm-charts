@@ -1,27 +1,24 @@
 # Artifact Attestations Helm Charts
 
-This repository hosts GitHub's Helm charts used to deploy [a Kubernetes admission controller for Artifact Attestations](https://docs.github.com/en/actions/security-guides/enforcing-artifact-attestations-with-a-kubernetes-admission-controller). This admission controller allows you to enforce the provenance of artifacts deployed to your cluster by verifying their [Artifact Attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds#verifying-artifact-attestations-with-the-github-cli).
+This repository hosts GitHub's Helm charts for deploying [a Kubernetes admission controller for Artifact Attestations](https://docs.github.com/en/actions/security-guides/enforcing-artifact-attestations-with-a-kubernetes-admission-controller). This admission controller allows you to enforce the provenance of artifacts deployed to your cluster by verifying their [Artifact Attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds#verifying-artifact-attestations-with-the-github-cli).
 
 The admission controller consists of:
-- A Helm chart for our [temporary fork](https://github.com/github/policy-controller) of the [Sigstore Policy Controller](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/policy-controller)
-- A Helm chart for deploying [GitHub's TrustRoot and a default ClusterImagePolicy](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/trust-policies)
-
-These charts are configured to enforce that images installed on a cluster have provenance attestations generated with the
-[Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
+- The [`policy-controller` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/policy-controller), which is used to deploy [our temporary fork](https://github.com/github/policy-controller) of the [Sigstore Policy Controller](https://github.com/sigstore/policy-controller)
+- The [`trust-policies` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/trust-policies), which is used to deploy GitHub's `TrustRoot` and a default `ClusterImagePolicy`. This policy ensures that images installed on a cluster must have provenance attestations generated with the [Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
 
 These charts are published to GitHub Container Registry (GHCR) as OCI images. Each release is attested by
 the [Attest Build Provenance Action](https://github.com/actions/attest-build-provenance).
 
-You can verify these releases with the [`gh` CLI](https://cli.github.com/manual/gh_attestation_verify):
+You can verify these releases using the [`gh` CLI](https://cli.github.com/manual/gh_attestation_verify):
 ```bash
 gh attestation verify --owner github \
     oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.9.0-github3
 ```
 
-For more information, see [our documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on using artifact attestations to establish build provenance and the [blog post](https://github.blog/2024-05-02-introducing-artifact-attestations-now-in-public-beta/) introducing Artifact Attestations.
+For more information, see [our documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on using artifact attestations to establish build provenance and [our blog post](https://github.blog/2024-05-02-introducing-artifact-attestations-now-in-public-beta/) introducing Artifact Attestations.
 
 ## Installation
-### Install the Sigstore Policy Controller
+### 1. Install the Sigstore Policy Controller
 
 You will need to install two charts. First, install the Sigstore policy controller:
 
@@ -35,9 +32,9 @@ helm install policy-controller --atomic \
 The `--atomic` flag will delete the installation if failure occurs.
 The `--create-namespace` will create the release namespace if not present.
 
-### Install GitHub's `TrustRoot` and a `ClusterImagePolicy`
+### 2. Install GitHub's `TrustRoot` and a `ClusterImagePolicy`
 
-Next, install the default GitHub policy to be used with policy controller:
+Next, install the GitHub `TrustRoot` and our default `ClusterImagePolicy`:
 
 ```bash
 helm install trust-policies --atomic \
@@ -48,17 +45,26 @@ helm install trust-policies --atomic \
  --set policy.organization=MY-ORGANIZATION
 ```
 
-By setting `policy.organization` to a specific organization, the policy
-controller will verify the workflow that signed an image's attestation is hosted
-in a repository within the specified organization.
+By setting `policy.organization` to a specific organization, the Sigstore policy
+controller will verify that the workflow that signed an image's attestation is hosted
+in a repository owned by the specified organization `MY-ORGANIZATION`
 
-See [here](charts/policies/values.yaml) for a complete set of modifiable
-policy chart values.
+See the [`trust-policies` values.yaml file](charts/trust-policies/values.yaml) for the complete set of
+`ClusterImagePolicy` values that can be customized.
 
-Once the charts are installed, policy controller should be running on your cluster.
-A namespace must be labeled with `policy.sigstore.dev/include=true` before
-policy controller can enforce the trust policy for any images we try to install
-on it. Label a namespace with the following:
+### 3. Enable the policy in your namespace
+
+Now that the `ClusterImagePolicy` has been installed, we must enable it. The policy will not be enforced until you specify which namespaces it should apply to.
+
+Each namespace in your cluster can independently enforce policies. To enable enforcement in a namespace, you can add the following annotation to the namespace:
+
+```yaml
+metadata:
+  annotations:
+    policy.sigstore.dev/include: true
+```
+Alternatively, you may run:
+
 ```bash
 kubectl label namespace MYNAMESPACE policy.sigstore.dev/include=true
 ```
