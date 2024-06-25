@@ -6,8 +6,8 @@ The admission controller consists of:
 - The [`policy-controller` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/policy-controller), which is used to deploy [our temporary fork](https://github.com/github/policy-controller) of the [Sigstore Policy Controller](https://github.com/sigstore/policy-controller)
 - The [`trust-policies` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/trust-policies), which is used to deploy GitHub's `TrustRoot` and a default `ClusterImagePolicy`. This policy ensures that images installed on a cluster must have provenance attestations generated with the [Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
 
-These charts are published to GitHub Container Registry (GHCR) as OCI images. Each release is attested by
-the [Attest Build Provenance Action](https://github.com/actions/attest-build-provenance).
+These charts are published to GitHub Container Registry (GHCR) as OCI images. Every release is attested with
+the [Attest Build Provenance Action](https://github.com/github/artifact-attestations-helm-charts/blob/a50f0ad3880a562892156ab8f4ed01a349807bb3/.github/workflows/release.yml#L50).
 
 You can verify these releases using the [`gh` CLI](https://cli.github.com/manual/gh_attestation_verify):
 ```bash
