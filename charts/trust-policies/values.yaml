@@ -14,6 +14,11 @@ policy:
   subjectRegExp:
   # policy.predicateType defines the type of predicate that the default policy expects
   predicateType: https://slsa.dev/provenance/v1
+  # images is a list of image glob patterns that the policy applies to
+  images:
+    - "**"
+  # exemptImages is a list of image glob patterns that will be allowed to run without verification
+  exemptImages: []
   # policy.enabled enables the default policy
   enabled: false
   # policy.trust identifies which signing authorities should be trusted as part of the policy
