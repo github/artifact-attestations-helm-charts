@@ -4,8 +4,7 @@ kind: ClusterImagePolicy
 metadata:
   name: github-policy
 spec:
-  images:
-  - glob: "**"
+  images: {{ include "clusterimagepolicy.images" . | nindent 4  }}
   authorities:
 {{ if .Values.policy.trust.github }}
   - name: github

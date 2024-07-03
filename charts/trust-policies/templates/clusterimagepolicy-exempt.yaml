@@ -1,0 +1,11 @@
+{{ if and .Values.policy.enabled .Values.policy.exemptImages }}
+apiVersion: policy.sigstore.dev/v1alpha1
+kind: ClusterImagePolicy
+metadata:
+  name: github-exempt-policy
+spec:
+  images: {{ include "clusterimagepolicy.exemptImages" . | nindent 4  }}
+  authorities:
+    - static:
+        action: pass
+{{- end }}
