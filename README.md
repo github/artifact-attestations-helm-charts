@@ -56,11 +56,11 @@ See the [`trust-policies` values.yaml file](charts/trust-policies/values.yaml) f
 
 Now that the `ClusterImagePolicy` has been installed, we must enable it. The policy will not be enforced until you specify which namespaces it should apply to.
 
-Each namespace in your cluster can independently enforce policies. To enable enforcement in a namespace, you can add the following annotation to the namespace:
+Each namespace in your cluster can independently enforce policies. To enable enforcement in a namespace, you can add the following label to the namespace:
 
 ```yaml
 metadata:
-  annotations:
+  labels:
     policy.sigstore.dev/include: true
 ```
 Alternatively, you may run:
