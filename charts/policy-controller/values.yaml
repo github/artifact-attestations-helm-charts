@@ -70,7 +70,7 @@ webhook:
 leasescleanup:
   image:
     repository: cgr.dev/chainguard/kubectl
-    version: latest-dev
+    version: sha256:dfa420c3fe94a8365b274fd714fb829b466cd762d6870d579db8744e6f27450a # crane digest cgr.dev/chainguard/kubectl:latest
     pullPolicy: IfNotPresent
 
 ## common node selector for all the pods

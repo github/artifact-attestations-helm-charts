@@ -124,6 +124,9 @@ Create the image path for the passed in image field
 Create the image path for the passed in leases-cleanup image field
 */}}
 {{- define "leases-cleanup.image" -}}
+{{- if eq (substr 0 7 .version) "sha256:" -}}
+{{- printf "%s@%s" .repository .version -}}
+{{- else -}}
 {{- printf "%s:%s" .repository .version -}}
 {{- end -}}
 
