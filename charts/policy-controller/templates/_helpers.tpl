@@ -129,6 +129,7 @@ Create the image path for the passed in leases-cleanup image field
 {{- else -}}
 {{- printf "%s:%s" .repository .version -}}
 {{- end -}}
+{{- end -}}
 
 {{/*
 */}}
