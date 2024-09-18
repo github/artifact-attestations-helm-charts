@@ -8,8 +8,8 @@ sources:
 type: application
 
 name: policy-controller
-version: "v0.10.0-github5"
-appVersion: "v0.10.0-github5"
+version: "v0.10.0-github7"
+appVersion: "v0.10.0-github7"
 
 maintainers:
   - name: codysoyland

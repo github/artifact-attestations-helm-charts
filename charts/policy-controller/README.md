@@ -21,7 +21,7 @@ The Helm chart for Policy  Controller
 | installCRDs | bool | `true` |  |
 | leasescleanup.image.pullPolicy | string | `"IfNotPresent"` |  |
 | leasescleanup.image.repository | string | `"cgr.dev/chainguard/kubectl"` |  |
-| leasescleanup.image.version | string | `"latest-dev"` |  |
+| leasescleanup.image.version | string | `"sha256:dfa420c3fe94a8365b274fd714fb829b466cd762d6870d579db8744e6f27450a"` |  |
 | loglevel | string | `"info"` |  |
 | serviceMonitor.enabled | bool | `false` |  |
 | webhook.configData | object | `{}` |  |
