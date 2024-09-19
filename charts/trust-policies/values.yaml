@@ -25,5 +25,10 @@ policy:
   trust:
     # trust the GitHub signing authority
     github: true
+    # githubTrustDomain may be set to the trust domain applicable for some GitHub Enterprise Cloud accounts.
+    # If applicable, this may be set to the output of the following command:
+    # $ gh api meta --jq .domains.artifact_attestations.trust_domain
+    # See documentation for more details: https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/enforcing-artifact-attestations-with-a-kubernetes-admission-controller
+    githubTrustDomain: ''
     # trust the Sigstore public-good signing authority
     sigstorePublic: true
