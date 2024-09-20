@@ -40,7 +40,7 @@ Next, install the GitHub `TrustRoot` and our default `ClusterImagePolicy`:
 helm install trust-policies --atomic \
  --namespace artifact-attestations \
  oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
- --version v0.6.0 \
+ --version v0.6.1 \
  --set policy.enabled=true \
  --set policy.organization=MY-ORGANIZATION
 ```
