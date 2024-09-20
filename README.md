@@ -12,7 +12,7 @@ the [Attest Build Provenance Action](https://github.com/github/artifact-attestat
 You can verify these releases using the [`gh` CLI](https://cli.github.com/manual/gh_attestation_verify):
 ```bash
 gh attestation verify --owner github \
-    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.10.0-github5
+    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.10.0-github7
 ```
 
 For more information, see [our documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on using artifact attestations to establish build provenance and [our blog post](https://github.blog/2024-05-02-introducing-artifact-attestations-now-in-public-beta/) introducing Artifact Attestations.
@@ -26,7 +26,7 @@ You will need to install two charts. First, install the Sigstore policy controll
 helm install policy-controller --atomic \
   --create-namespace --namespace artifact-attestations \
   oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
-  --version v0.10.0-github5
+  --version v0.10.0-github7
 ```
 
 The `--atomic` flag will delete the installation if failure occurs.
@@ -40,7 +40,7 @@ Next, install the GitHub `TrustRoot` and our default `ClusterImagePolicy`:
 helm install trust-policies --atomic \
  --namespace artifact-attestations \
  oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
- --version v0.5.0 \
+ --version v0.6.0 \
  --set policy.enabled=true \
  --set policy.organization=MY-ORGANIZATION
 ```
@@ -69,6 +69,8 @@ Alternatively, you may run:
 kubectl label namespace MYNAMESPACE policy.sigstore.dev/include=true
 ```
 
+See GitHub's documentation on [Enforcing artifact attestations with a Kubernetes admission controller](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/enforcing-artifact-attestations-with-a-kubernetes-admission-controller) for more information.
+
 ## License
 
 This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [Apache 2.0](./LICENSE) for the full terms.
@@ -89,8 +91,8 @@ please file an [issue](https://github.com/github/artifact-attestations-helm-char
 When you are ready to cut a new release for a given Helm chart
 
 1. Update the chart's `AppVersion` and `Version` to the appropriate values
-1. Create a new tag prefixed with the targeted chart name in the format <my-chart-name>-v0.1.2, ex: `git tag -s "policy-controller-v0.10.0-github5" -m "policy-controller-v0.10.0-github5"`
-1. Push the tag, ex: `git push origin "policy-controller-v0.10.0-github5"`
+1. Create a new tag prefixed with the targeted chart name in the format <my-chart-name>-v0.1.2, ex: `git tag -s "policy-controller-v0.10.0-github7" -m "policy-controller-v0.10.0-github7"`
+1. Push the tag, ex: `git push origin "policy-controller-v0.10.0-github7"`
 1. The [release workflow](.github/workflows/release.yml) will be triggered if
 the chart's tag format is included in the list of tags that trigger the workflow.
 The tag must follow the format `<my-chart-name>-v<semantic-version>`
