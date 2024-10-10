@@ -16,8 +16,8 @@ webhook:
   name: webhook
   image:
     repository: ghcr.io/github/policy-controller-webhook
-    # crane digest ghcr.io/github/policy-controller-webhook:v0.10.0-github7
-    version: sha256:0bc1630678ffb1623c139d6f0cfdb512a2041033ec94c83a3820f7eddd6b0aab
+    # crane digest ghcr.io/github/policy-controller-webhook:v0.10.0-github8
+    version: sha256:2f8369a686cb28e86403768a7114396aa7aa3565340c8e8d1c1d94d3c69b341b
     pullPolicy: IfNotPresent
   env: {}
   extraArgs: {}
@@ -71,7 +71,7 @@ leasescleanup:
   image:
     repository: cgr.dev/chainguard/kubectl
     # crane digest cgr.dev/chainguard/kubectl:latest
-    version: sha256:dfa420c3fe94a8365b274fd714fb829b466cd762d6870d579db8744e6f27450a
+    version: sha256:12a6dcc2bbacbf6114ea9ea54127b9487f469fac1b5ff0b8b19643eeffe45269
     pullPolicy: IfNotPresent
 
 ## common node selector for all the pods
