@@ -8,8 +8,8 @@ sources:
 type: application
 
 name: trust-policies
-version: "v0.6.1"
-appVersion: "v0.6.1"
+version: "v0.6.2"
+appVersion: "v0.6.2"
 
 maintainers:
   - name: codysoyland
