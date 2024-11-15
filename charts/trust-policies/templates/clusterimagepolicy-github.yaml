@@ -26,6 +26,7 @@ spec:
       identities:
       - issuer: https://token.actions.githubusercontent.com
         {{- include "clusterimagepolicy.subjectRegExp" . | nindent 8 }}
+      url: https://fulcio.sigstore.dev
     ctlog:
       url: https://rekor.sigstore.dev
     signatureFormat: bundle
