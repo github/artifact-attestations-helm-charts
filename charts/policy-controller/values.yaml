@@ -16,8 +16,8 @@ webhook:
   name: webhook
   image:
     repository: ghcr.io/github/policy-controller-webhook
-    # crane digest ghcr.io/github/policy-controller-webhook:v0.10.0-github9
-    version: sha256:50f166c1f19c6f910ba2426bdc153aeb033e41af77b835de931cb54f5e89d73c
+    # crane digest ghcr.io/github/policy-controller-webhook:v0.12.0-github10
+    version: sha256:9994eb53b3908a0a5735ad0fccbaea0ffca9e0818c6ad8761a70cf565338faf0
     pullPolicy: IfNotPresent
   env: {}
   extraArgs: {}
