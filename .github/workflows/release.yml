@@ -47,7 +47,7 @@ jobs:
           digest=$(crane digest ${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.release_name }}:${{ steps.release-details.outputs.release_version }})
           echo digest=$digest >> $GITHUB_OUTPUT
       - name: Attest
-        uses: actions/attest-build-provenance@7668571508540a607bdfd90a87a560489fe372eb # v2.1.0
+        uses: actions/attest-build-provenance@520d128f165991a6c774bcb264f323e3d70747f4 # v2.2.0
         with:
           subject-name: ${{ env.REGISTRY }}/${{ github.repository }}/${{ steps.release-details.outputs.release_name }}
           subject-digest: ${{ steps.get-digest.outputs.digest }}
