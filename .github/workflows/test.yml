@@ -5,8 +5,7 @@ on:
     paths:
       - "charts/**"
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   test:
