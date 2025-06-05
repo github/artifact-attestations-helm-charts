@@ -5,6 +5,8 @@ on:
     paths:
       - "charts/**"
 
+permissions: {}
+
 jobs:
   test:
     runs-on: ubuntu-latest
