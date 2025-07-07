@@ -8,8 +8,8 @@ sources:
 type: application
 
 name: trust-policies
-version: "v0.6.2"
-appVersion: "v0.6.2"
+version: "v0.6.3"
+appVersion: "v0.6.3"
 
 maintainers:
   - name: malancas

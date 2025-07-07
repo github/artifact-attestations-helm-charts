@@ -68,7 +68,7 @@ The Helm chart for Policy  Controller
 Install `policy-controller` using Helm:
 
 ```shell
-helm install policy-controller oci://ghcr.io/github/helm-charts/policy-controller --create-namespace -n cosign-system --version 0.9.0-github1
+helm install policy-controller oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller --create-namespace -n cosign-system --version v0.13.0
 ```
 
 The `policy-controller` enforce images matching the defined list of `ClusterImagePolicy` for the labeled namespaces.
