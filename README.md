@@ -3,7 +3,7 @@
 This repository hosts GitHub's Helm charts for deploying [a Kubernetes admission controller for Artifact Attestations](https://docs.github.com/en/actions/security-guides/enforcing-artifact-attestations-with-a-kubernetes-admission-controller). This admission controller allows you to enforce the provenance of artifacts deployed to your cluster by verifying their [Artifact Attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds#verifying-artifact-attestations-with-the-github-cli).
 
 The admission controller consists of:
-- The [`policy-controller` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/policy-controller), which is used to deploy [our temporary fork](https://github.com/github/policy-controller) of the [Sigstore Policy Controller](https://github.com/sigstore/policy-controller)
+- The [`policy-controller` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/policy-controller), which is used to deploy the [Sigstore Policy Controller](https://github.com/sigstore/policy-controller)
 - The [`trust-policies` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/trust-policies), which is used to deploy GitHub's `TrustRoot` and a default `ClusterImagePolicy`. This policy ensures that images installed on a cluster must have provenance attestations generated with the [Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
 
 These charts are published to GitHub Container Registry (GHCR) as OCI images. Every release is attested with

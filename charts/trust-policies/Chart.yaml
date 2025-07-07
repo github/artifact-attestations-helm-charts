@@ -1,9 +1,9 @@
 apiVersion: v2
-description: GitHub policy for the Artifact Attestations Policy Controller
-home: https://github.com/github/policy-controller
+description: Used to deploy GitHub's TrustRoot and a default ClusterImagePolicy
+home: https://github.com/github/artifact-attestations-helm-charts
 
 sources:
-  - https://github.com/github/policy-controller
+  - https://github.com/github/artifact-attestations-helm-charts
 
 type: application
 
@@ -12,5 +12,4 @@ version: "v0.6.2"
 appVersion: "v0.6.2"
 
 maintainers:
-  - name: codysoyland
   - name: malancas

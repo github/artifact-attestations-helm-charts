@@ -2,7 +2,7 @@
 
 The Helm chart for Policy  Controller
 
-**Homepage:** <https://github.com/github/policy-controller>
+**Homepage:** <https://github.com/sigstore/policy-controller>
 
 ## Source Code
 
