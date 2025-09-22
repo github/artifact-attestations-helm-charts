@@ -10,6 +10,7 @@ spec:
   - name: github
     keyless:
       trustRootRef: github
+      insecureIgnoreSCT: true
       url: https://fulcio.githubapp.com
       identities:
       - issuer: https://token.actions.githubusercontent.com
