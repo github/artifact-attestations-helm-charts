@@ -25,7 +25,7 @@ You will need to install two charts. First, install the Sigstore policy controll
 helm install policy-controller --atomic \
   --create-namespace --namespace artifact-attestations \
   oci://ghcr.io/sigstore/helm-charts/policy-controller \
-  --version v0.13.1
+  --version 0.10.5
 ```
 
 The `--atomic` flag will delete the installation if failure occurs.

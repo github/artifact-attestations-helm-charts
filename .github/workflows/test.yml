@@ -40,7 +40,7 @@ jobs:
           helm install policy-controller --atomic \
             --create-namespace --namespace artifact-attestations \
             oci://ghcr.io/sigstore/helm-charts/policy-controller \
-            --version v0.13.1
+            --version 0.10.5
 
       - name: Install trust-policies
         run: |
