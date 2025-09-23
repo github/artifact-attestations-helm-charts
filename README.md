@@ -3,16 +3,15 @@
 This repository hosts GitHub's Helm charts for deploying [a Kubernetes admission controller for Artifact Attestations](https://docs.github.com/en/actions/security-guides/enforcing-artifact-attestations-with-a-kubernetes-admission-controller). This admission controller allows you to enforce the provenance of artifacts deployed to your cluster by verifying their [Artifact Attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds#verifying-artifact-attestations-with-the-github-cli).
 
 The admission controller consists of:
-- The [`policy-controller` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/policy-controller), which is used to deploy [our temporary fork](https://github.com/github/policy-controller) of the [Sigstore Policy Controller](https://github.com/sigstore/policy-controller)
 - The [`trust-policies` chart](https://github.com/github/artifact-attestations-helm-charts/tree/main/charts/trust-policies), which is used to deploy GitHub's `TrustRoot` and a default `ClusterImagePolicy`. This policy ensures that images installed on a cluster must have provenance attestations generated with the [Attest Build Provenance GitHub Action](https://github.com/actions/attest-build-provenance).
 
-These charts are published to GitHub Container Registry (GHCR) as OCI images. Every release is attested with
-the [Attest Build Provenance Action](https://github.com/github/artifact-attestations-helm-charts/blob/a50f0ad3880a562892156ab8f4ed01a349807bb3/.github/workflows/release.yml#L50).
+This chart is published to GitHub Container Registry (GHCR) as an OCI images. Every release is attested with
+the [Attest Build Provenance Action](https://github.com/github/artifact-attestations-helm-charts/blob/a50f0ad3880a562892156ab8f4ed01a349807bb3/.github/workflows/release.yml#L49).
 
 You can verify these releases using the [`gh` CLI](https://cli.github.com/manual/gh_attestation_verify):
 ```bash
 gh attestation verify --owner github \
-    oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller:v0.12.0-github12
+    oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies:v0.7.0
 ```
 
 For more information, see [our documentation](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds) on using artifact attestations to establish build provenance and [our blog post](https://github.blog/2024-05-02-introducing-artifact-attestations-now-in-public-beta/) introducing Artifact Attestations.
@@ -25,8 +24,8 @@ You will need to install two charts. First, install the Sigstore policy controll
 ```bash
 helm install policy-controller --atomic \
   --create-namespace --namespace artifact-attestations \
-  oci://ghcr.io/github/artifact-attestations-helm-charts/policy-controller \
-  --version v0.12.0-github12
+  oci://ghcr.io/sigstore/helm-charts/policy-controller \
+  --version 0.10.5
 ```
 
 The `--atomic` flag will delete the installation if failure occurs.
@@ -40,7 +39,7 @@ Next, install the GitHub `TrustRoot` and our default `ClusterImagePolicy`:
 helm install trust-policies --atomic \
  --namespace artifact-attestations \
  oci://ghcr.io/github/artifact-attestations-helm-charts/trust-policies \
- --version v0.6.2 \
+ --version v0.7.0 \
  --set policy.enabled=true \
  --set policy.organization=MY-ORGANIZATION
 ```
@@ -91,8 +90,8 @@ please file an [issue](https://github.com/github/artifact-attestations-helm-char
 When you are ready to cut a new release for a given Helm chart
 
 1. Update the chart's `AppVersion` and `Version` to the appropriate values
-1. Create a new tag prefixed with the targeted chart name in the format <my-chart-name>-v0.1.2, ex: `git tag -s "policy-controller-v0.12.0-github12" -m "policy-controller-v0.12.0-github12"`
-1. Push the tag, ex: `git push origin "policy-controller-v0.12.0-github12"`
-1. The [release workflow](.github/workflows/release.yml) will be triggered if
+2. Create a new tag prefixed with the targeted chart name in the format <my-chart-name>-v0.1.2, ex: `git tag -s "trust-policies-v0.7.0" -m "trust-policies-v0.7.0"`
+3. Push the tag, ex: `git push origin "trust-policies-v0.7.0"`
+4. The [release workflow](.github/workflows/release.yml) will be triggered if
 the chart's tag format is included in the list of tags that trigger the workflow.
 The tag must follow the format `<my-chart-name>-v<semantic-version>`

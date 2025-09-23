@@ -3,7 +3,6 @@ name: Release
 on:
   push:
     tags:
-      - policy-controller-v*
       - trust-policies-v*
 
 jobs:
