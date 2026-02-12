@@ -5,6 +5,10 @@ metadata:
   name: github-policy
 spec:
   images: {{ include "clusterimagepolicy.images" . | nindent 4  }}
+  {{- with .Values.policy.match }}
+  match:
+      {{- toYaml . | nindent 4 }}
+  {{- end }}
   authorities:
 {{ if .Values.policy.trust.github }}
   - name: github
