@@ -8,7 +8,7 @@ policy:
   organization:
   # policy.repository is used to validate the signer workflow's identity. An attestation is valid if it was generated inside this specific repository.
   # Must be used in combination with the policy.organization value.
-  repository: '.*'
+  repository: ".*"
   # policy.subjectRegExp is a regex used to validate the signer workflow's identity. Use this if your attestations are generated with a reusable workflow.
   # Required if policy.enabled is true and policy.organization has not been set.
   subjectRegExp:
@@ -17,6 +17,13 @@ policy:
   # images is a list of image glob patterns that the policy applies to
   images:
     - "**"
+  # match defines additional matching criteria for images the policy applies to
+  match:
+    # - resource: jobs
+    #   group: batch
+    #   version: v1
+    # - resource: pods
+    #   version: v1
   # exemptImages is a list of image glob patterns that will be allowed to run without verification
   exemptImages: []
   # policy.enabled enables the default policy
@@ -30,6 +37,6 @@ policy:
     # If your enterprise is on GHE.com, then githubTrustDomain must be set to the output of the following command:
     # $ gh api meta --jq .domains.artifact_attestations.trust_domain
     # For more information, see: https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/enforcing-artifact-attestations-with-a-kubernetes-admission-controller
-    githubTrustDomain: ''
+    githubTrustDomain: ""
     # trust the Sigstore public-good signing authority
     sigstorePublic: true
